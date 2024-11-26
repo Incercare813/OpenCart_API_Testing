@@ -1,0 +1,231 @@
+{
+	"info": {
+		"_postman_id": "43719db0-ce22-4e47-bf03-f7eac9a4da2e",
+		"name": "CRUD_Variables",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "39149086"
+	},
+	"item": [
+		{
+			"name": "Read all users",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.variables.set(\"url_local\", \"http://qachallenge.ro/api/test_api.php\");\r",
+							"pm.collectionVariables.set(\"url_collection_IDs\", \"fetch_all\");\r",
+							"pm.globals.set(\"url_global_IDs\", \"fetch_all\");\r",
+							"pm.environment.set(\"url_env_qa\", \"http://qachallenge.ro/api/test_api.php\");\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url_env_qa}}?action={{url_global_IDs}}",
+					"host": [
+						"{{url_env_qa}}"
+					],
+					"query": [
+						{
+							"key": "action",
+							"value": "{{url_global_IDs}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": {
+					"raw": "{{url_global}}?action=delete&id=1080",
+					"host": [
+						"{{url_global}}"
+					],
+					"query": [
+						{
+							"key": "action",
+							"value": "delete"
+						},
+						{
+							"key": "id",
+							"value": "1080"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.globals.set(\"var_gl\", \"action\");\r",
+							"pm.collectionVariables.set(\"url_collection\", \"http://qachallenge.ro/api/test_api.php\");"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "first_name",
+							"value": "Radu",
+							"type": "text"
+						},
+						{
+							"key": "last_name",
+							"value": "Tester",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{url_collection}}?{{var_gl}}=insert",
+					"host": [
+						"{{url_collection}}"
+					],
+					"query": [
+						{
+							"key": "{{var_gl}}",
+							"value": "insert"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "id",
+							"value": "1087",
+							"type": "text"
+						},
+						{
+							"key": "first_name",
+							"value": "AlexU",
+							"type": "text"
+						},
+						{
+							"key": "last_name",
+							"value": "TesterU",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{url_collection}}?action=update",
+					"host": [
+						"{{url_collection}}"
+					],
+					"query": [
+						{
+							"key": "action",
+							"value": "update"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					"console.log(\"pre-request script at collection level\")"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					"console.log(\"post-request script at collection level\")"
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "url_collection_IDs",
+			"value": ""
+		},
+		{
+			"key": "url_collection",
+			"value": ""
+		}
+	]
+}
